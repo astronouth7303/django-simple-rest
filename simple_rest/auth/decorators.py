@@ -16,7 +16,7 @@ def auth_required(secret_key_func):
 
         def test_func(request, *args, **kwargs):
             secret_key = secret_key_func(request, *args, **kwargs)
-            return validate_signature(request, secret_key) or request.user.is_authenticated()
+            return validate_signature(request, secret_key) or request.user.is_authenticated
 
         decorator = request_passes_test(test_func)
         return wrap_object(obj, decorator)
@@ -29,7 +29,7 @@ def login_required(obj):
     Requires that the user be logged in order to gain access to the resource
     at the specified the URI.
     """
-    decorator = request_passes_test(lambda r, *args, **kwargs: r.user.is_authenticated())
+    decorator = request_passes_test(lambda r, *args, **kwargs: r.user.is_authenticated)
     return wrap_object(obj, decorator)
 
 
